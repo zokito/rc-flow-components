@@ -3,7 +3,7 @@
     <decisions>
         <name>Decision_Navigation</name>
         <label>Navigation?</label>
-        <locationX>278</locationX>
+        <locationX>277</locationX>
         <locationY>100</locationY>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
@@ -37,6 +37,28 @@
             <label>Submit Contact</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Decision_Navigation_0</name>
+        <label>Navigation?</label>
+        <locationX>699</locationX>
+        <locationY>23</locationY>
+        <defaultConnectorLabel>Cancel</defaultConnectorLabel>
+        <rules>
+            <name>Nav_Create_Contact_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>nav_submit</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Submit_Contact</targetReference>
+            </connector>
+            <label>Submit Contact</label>
+        </rules>
+    </decisions>
     <interviewLabel>Create Contact {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Create Contact</label>
     <processMetadataValues>
@@ -55,8 +77,8 @@
     <recordCreates>
         <name>Submit_Contact</name>
         <label>Create Contact</label>
-        <locationX>596</locationX>
-        <locationY>193</locationY>
+        <locationX>707</locationX>
+        <locationY>200</locationY>
         <connector>
             <targetReference>screen3</targetReference>
         </connector>
@@ -245,7 +267,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Submit_Contact</targetReference>
+            <targetReference>Decision_Navigation_0</targetReference>
         </connector>
         <fields>
             <name>screen2_Address</name>
@@ -280,6 +302,28 @@
             </outputParameters>
         </fields>
         <fields>
+            <name>cancelButton</name>
+            <extensionName>c:RC_FlowButton</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Cancel</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>variant</name>
+                <value>
+                    <stringValue>DESTRUCTIVE</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>nav_cancel</assignToReference>
+                <name>buttonClicked</name>
+            </outputParameters>
+        </fields>
+        <fields>
             <name>screen2_ContactInfoButton</name>
             <extensionName>c:RC_FlowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
@@ -308,7 +352,6 @@
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
             <name>screen2_SubmitContact</name>
@@ -339,7 +382,10 @@
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <outputParameters>
+                <assignToReference>nav_submit</assignToReference>
+                <name>buttonClicked</name>
+            </outputParameters>
         </fields>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
@@ -347,8 +393,8 @@
     <screens>
         <name>screen3</name>
         <label>Confirmation</label>
-        <locationX>734</locationX>
-        <locationY>193</locationY>
+        <locationX>852</locationX>
+        <locationY>200</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -436,7 +482,7 @@
             <targetReference>screen1</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>contact</name>
         <dataType>SObject</dataType>
