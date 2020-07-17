@@ -42,7 +42,7 @@
             <componentInstanceProperties>
                 <name>width</name>
                 <type>decorator</type>
-                <value>340</value>
+                <value>400</value>
             </componentInstanceProperties>
             <componentName>flowruntime:interview</componentName>
         </componentInstances>
@@ -53,7 +53,7 @@
         <name>backgroundComponents</name>
         <type>Background</type>
     </flexiPageRegions>
-    <masterLabel>Flow Components UtilityBar</masterLabel>
+    <masterLabel>RC Flow Components UtilityBar</masterLabel>
     <template>
         <name>one:utilityBarTemplateDesktop</name>
     </template>
