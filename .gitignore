@@ -38,9 +38,13 @@ ehthumbs.db
 $RECYCLE.BIN/
 
 manifest
-**/../.eslintrc.json
+**/.eslintrc.json
 IlluminatedCloud
 .forceignore
 .eslintignore
+.prett*
 package.json
+scripts
+.vscode
 *.iml
+config

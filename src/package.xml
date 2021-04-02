@@ -38,5 +38,5 @@
         <members>flowComponents</members>
         <name>PermissionSet</name>
     </types>
-    <version>48.0</version>
+    <version>51.0</version>
 </Package>
