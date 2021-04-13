@@ -1,51 +1,52 @@
 ({
-	showFlow: function(component, flowComponentID) {
-               
+	showFlow: function(cmp, flowComponentID) {
+
         // find the view component (by aura:id) where the flow will be displayed
-        var flow = component.find(flowComponentID);
-        
+        const flow = cmp.find(flowComponentID);
+
         if (flow) {
 
-            var flowToLaunch = component.get("v.flowToLaunch");
-        	var recordId = component.get("v.recordId");
-            
+            const flowToLaunch = cmp.get("v.flowToLaunch");
+            const recordId = cmp.get("v.recordId");
+
             // flow inputs
-            var inputVariables = [];
-            if (recordId) inputVariables[0] = { name : "recordId", type : "String", value: recordId };
+            const inputVariables = JSON.parse(cmp.get("v.inputParameters"));
+            console.log('RC_FlowButtonHelper::::: ', inputVariables);
+            if (recordId) inputVariables.push({ name : "recordId", type : "String", value: recordId });
             console.log('RC_FlowButtonHelper > showFlow - flowToLaunch: ' + flowToLaunch + ', inputVariables: ' + JSON.stringify(inputVariables));
-        
+
             // start the flow by the flow Unique Name
-            flow.startFlow(flowToLaunch, inputVariables);            
+            flow.startFlow(flowToLaunch, inputVariables);
         }
-        
+
     }, // end showFlow
-    
-    openModal: function(component) {
+
+    openModal: function(cmp) {
 
         // open modal
-        component.set("v.modalIsOpen", true);
-        
+        cmp.set("v.modalIsOpen", true);
+
         // show flow in modal
-        this.showFlow(component, 'modalFlowComponent');
-        
+        this.showFlow(cmp, 'modalFlowComponent');
+
     }, // end openModal
-    
-    closeModal: function(component) {
-        console.log('RC_FlowButtonHelper > closeModal'); 
 
-        component.set("v.modalIsOpen", false); 
+    closeModal: function(cmp) {
+        console.log('RC_FlowButtonHelper > closeModal');
 
-    }, // end closeModal  
+        cmp.set("v.modalIsOpen", false);
 
-    navigateFlow: function(component) {
-        var buttonFlowAction = component.get("v.buttonFlowAction");   
+    }, // end closeModal
+
+    navigateFlow: function(cmp) {
+        const buttonFlowAction = cmp.get("v.buttonFlowAction");
 
         // navigate in the flow
-        // for example, this does the same thing as the "Next" or "Previous" buttons in the standard flow footer 
-        var navigate = component.get("v.navigateFlow");
+        // for example, this does the same thing as the "Next" or "Previous" buttons in the standard flow footer
+        const navigate = cmp.get("v.navigateFlow");
         if (navigate) {
             navigate(buttonFlowAction);
-        }  
+        }
     }
 
 })

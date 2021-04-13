@@ -1,100 +1,100 @@
 ({
 
-    init: function(component, event, helper) {
+    init: function(cmp, event, helper) {
 
-        var buttonLabel = component.get("v.buttonLabel");
-        var launchFlowOnInit = component.get("v.launchFlowOnInit");
+        const buttonLabel = cmp.get("v.buttonLabel");
+        const launchFlowOnInit = cmp.get("v.launchFlowOnInit");
         console.log('RC_FlowButtonController > init - buttonLabel: ' + buttonLabel + ', launchFlowOnInit: ' + launchFlowOnInit);
 
         if (launchFlowOnInit) {
-            var showFlowInModal = component.get("v.showFlowInModal");
+            var showFlowInModal = cmp.get("v.showFlowInModal");
 
             if (showFlowInModal) {
-                helper.openModal(component);
-            } else {                
+                helper.openModal(cmp);
+            } else {
                 // show flow inline
-                component.set("v.showFlow", true);
-                helper.showFlow(component, 'flowComponent');
+                cmp.set("v.showFlow", true);
+                helper.showFlow(cmp, 'flowComponent');
             }
         } else {
             // show button
-            component.set("v.showButton", true);
+            cmp.set("v.showButton", true);
         }
 
     }, // end init
-	    
-    handleNavigation : function(component, event, helper) {
-        
-        var buttonLabel = component.get("v.buttonLabel");
-        var flowToLaunch = component.get("v.flowToLaunch");
-        var showFlowInModal = component.get("v.showFlowInModal");
-        var buttonFlowAction = component.get("v.buttonFlowAction");
-        
+
+    handleNavigation : function(cmp, event, helper) {
+
+        const buttonLabel = cmp.get("v.buttonLabel");
+        const flowToLaunch = cmp.get("v.flowToLaunch");
+        const showFlowInModal = cmp.get("v.showFlowInModal");
+        const buttonFlowAction = cmp.get("v.buttonFlowAction");
+
         // button clicked
-        component.set("v.buttonClicked", true)
-                
+        cmp.set("v.buttonClicked", true)
+
         if (flowToLaunch) {
 
-            console.log('RC_FlowButtonController > handleNavigation - button clicked: ' + buttonLabel 
+            console.log('RC_FlowButtonController > handleNavigation - button clicked: ' + buttonLabel
                         + ', flowToLaunch: ' + flowToLaunch
                         + ', showFlowInModal: ' + showFlowInModal);
-            
+
             // hide button
-            component.set("v.showButton", false);
-            
+            cmp.set("v.showButton", false);
+
             if (showFlowInModal) {
-                helper.openModal(component);
-            } else {                
+                helper.openModal(cmp);
+            } else {
                 // show flow inline
-                component.set("v.showFlow", true);
-                helper.showFlow(component, 'flowComponent');
+                cmp.set("v.showFlow", true);
+                helper.showFlow(cmp, 'flowComponent');
             }
-            
+
         } else if (buttonFlowAction) {
-            
-            console.log('RC_FlowButtonController > handleNavigation - button clicked: ' + buttonLabel 
+
+            console.log('RC_FlowButtonController > handleNavigation - button clicked: ' + buttonLabel
                         + ', buttonFlowAction: ' + buttonFlowAction);
-            
+
             // navigate in the flow
-            helper.navigateFlow(component);
-                        
+            helper.navigateFlow(cmp);
+
         } else {
-        	console.log('RC_FlowButtonController > handleNavigation - button not configured to do anything');             
+        	console.log('RC_FlowButtonController > handleNavigation - button not configured to do anything');
         }
-            
+
    	}, // end handleNavigation
-    
-	handleStatusChange : function (component, event, helper) {
-        
-        var status = event.getParam("status");
-        component.set("v.flowStatus", status);
-        console.log('RC_FlowButtonController > handleStatusChange - status: ' + component.get("v.flowStatus"));
+
+	handleStatusChange : function (cmp, event, helper) {
+
+        const status = event.getParam("status");
+        cmp.set("v.flowStatus", status);
+        console.log('RC_FlowButtonController > handleStatusChange - status: ' + cmp.get("v.flowStatus"));
 
         if(status == "FINISHED") {
-           
+
             // hide flow inline
-            component.set("v.showFlow", false);
-            
-            var showFlowInModal = component.get("v.showFlowInModal");
-            console.log('RC_FlowButtonController > handleStatusChange - showFlowInModal: ' + showFlowInModal); 
+            cmp.set("v.showFlow", false);
+
+            const showFlowInModal = cmp.get("v.showFlowInModal");
+            console.log('RC_FlowButtonController > handleStatusChange - showFlowInModal: ' + showFlowInModal);
             if (showFlowInModal) {
-                helper.closeModal(component);
+                helper.closeModal(cmp);
             }
-            
-            var doAction = component.get("v.doFlowActionWhenSubflowCompletes");
-            console.log('RC_FlowButtonController > handleStatusChange - doFlowActionWhenSubflowCompletes: ' + doAction); 
-            
+
+            const doAction = cmp.get("v.doFlowActionWhenSubflowCompletes");
+            console.log('RC_FlowButtonController > handleStatusChange - doFlowActionWhenSubflowCompletes: ' + doAction);
+
             if (doAction) {
-                
+
                 // navigate in the flow
-                helper.navigateFlow(component);
+                helper.navigateFlow(cmp);
 
             } else {
-            
+
             	// show button
-            	component.set("v.showButton", true);
+            	cmp.set("v.showButton", true);
             }
-            
+
             /**
             // Get the output variables of the flow and iterate over them
             var outputVariables = event.getParam("outputVariables");
@@ -110,17 +110,17 @@
             }
             **/
         }
-        
+
     }, // end handleNavigation
-    
-    closeModal: function(component, event, helper) {
+
+    closeModal: function(cmp, event, helper) {
 
         // close modal
-        helper.closeModal(component);
+        helper.closeModal(cmp);
 
         // show button
-        component.set("v.showButton", true);
+        cmp.set("v.showButton", true);
 
     }, // end closeModal
-    
+
 })
